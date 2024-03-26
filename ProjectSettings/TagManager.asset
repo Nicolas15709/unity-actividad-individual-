@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - DeathZone
+  - BulletLayer
+  - Mapa2
+  - Final
   layers:
   - Default
   - TransparentFX

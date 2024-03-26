@@ -29,15 +29,19 @@ public class GruntScript : MonoBehaviour
         } 
     }
 
-    private void Shoot()
-    {
-       Vector3 direction;
-      if(transform.localScale.x == 1.0f) direction = UnityEngine.Vector3.right;
-      else direction = UnityEngine.Vector3.left;
+   private void Shoot()
+{
+    Vector3 direction;
+    if (transform.localScale.x == 1.0f) 
+        direction = Vector3.right;
+    else 
+        direction = Vector3.left;
 
-      GameObject bullet = Instantiate(BulletPrefab, transform.position + direction * 0.1f, Quaternion.identity);
-      bullet.GetComponent<BulletScript>().SetDirection(direction);
-    }
+    GameObject bullet = Instantiate(BulletPrefab, transform.position + direction * 0.1f, Quaternion.identity);
+    bullet.tag = "BulletLayer"; 
+    bullet.GetComponent<BulletScript>().SetDirection(direction);
+}
+
 
      public void Hit()
     {

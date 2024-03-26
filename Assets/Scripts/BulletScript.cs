@@ -7,18 +7,18 @@ public class BulletScript : MonoBehaviour
 {
     public AudioClip Sound;
     public float Speed;
-   private Rigidbody2D Rigidbody2D;
-   private Vector2 Direction;
-    void Start()
+    private Rigidbody2D Rigidbody2D;
+    private Vector2 Direction;
+
+    private void Start()
     {
-        Rigidbody2D = GetComponent<Rigidbody2D>(); 
+        Rigidbody2D = GetComponent<Rigidbody2D>();
         Camera.main.GetComponent<AudioSource>().PlayOneShot(Sound);
     }
 
-    
     private void FixedUpdate()
     {
-       Rigidbody2D.velocity = Direction * Speed; 
+        Rigidbody2D.velocity = Direction * Speed;
     }
 
     public void SetDirection(Vector2 direction)
@@ -33,18 +33,22 @@ public class BulletScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-         JohnMovement john = collision.GetComponent<JohnMovement>(); 
-      GruntScript grunt = collision.GetComponent<GruntScript>();  
-      if (john != null)
-      {
-            john.Hit();
-      }
-      if(grunt != null)
-      {
-            grunt.Hit();
-      }
-      DestroyBullet();
-    }
+        if (collision.CompareTag("BulletLayer")) // Verifica si la colisión es con una bala del enemigo
+        {
+            DestroyBullet(); // Destruye la bala del jugador
+            return; // Sale de la función para evitar que se ejecute el resto del código
+        }
 
-   
+        JohnMovement john = collision.GetComponent<JohnMovement>();
+        GruntScript grunt = collision.GetComponent<GruntScript>();
+        if (john != null)
+        {
+            john.Hit();
+        }
+        if (grunt != null)
+        {
+            grunt.Hit();
+        }
+        DestroyBullet();
+    }
 }

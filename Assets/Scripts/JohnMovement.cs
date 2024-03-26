@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
+using UnityEngine.SceneManagement;
+
 
 [System.Diagnostics.DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public class JohnMovement : MonoBehaviour
@@ -78,9 +80,13 @@ public class JohnMovement : MonoBehaviour
 
     public void Hit()
     {
-      Health = Health - 1;
-      if (Health == 0) Destroy(gameObject);   
+    Health--;
+    if (Health <= 0)
+    {
+        SceneManager.LoadScene("GameOver");
     }
+}
+
 
     private string GetDebuggerDisplay()
     {
@@ -92,6 +98,7 @@ public class JohnMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("DeathZone"))
         {
             Hit();
+            SceneManager.LoadScene("GameOver");
         }
     }
 
